@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Expense } from '../types/expense';
+import { formatCurrency } from '../utils/currency';
 
 interface Props {
     expense: Expense;
@@ -17,7 +18,7 @@ export const ExpenseListItem: React.FC<Props> = ({ expense, onPress }) => {
                 <Text style={styles.date}>{new Date(expense.date).toLocaleDateString()}</Text>
             </View>
             <Text style={[styles.amount, isIncome ? styles.income : styles.expense]}>
-                {isIncome ? '+' : '-'}${expense.amount.toFixed(2)}
+                {isIncome ? '+' : '-'}${formatCurrency(expense.amount)}
             </Text>
         </TouchableOpacity>
     );

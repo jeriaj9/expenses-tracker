@@ -5,6 +5,7 @@ import { ExpensesList } from '../components/ExpensesList';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 import { StatusBar } from 'expo-status-bar';
+import { formatCurrency } from '../utils/currency';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -35,16 +36,16 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
                 <View style={styles.summaryCard}>
                     <Text style={styles.balanceLabel}>Total Balance</Text>
                     <Text style={[styles.balanceAmount, totalBalance < 0 && styles.negative]}>
-                        ${totalBalance.toFixed(2)}
+                        ${formatCurrency(totalBalance)}
                     </Text>
                     <View style={styles.statsRow}>
                         <View>
                             <Text style={styles.statLabel}>Income</Text>
-                            <Text style={styles.income}>+${totalIncome.toFixed(2)}</Text>
+                            <Text style={styles.income}>+${formatCurrency(totalIncome)}</Text>
                         </View>
                         <View>
                             <Text style={styles.statLabel}>Expense</Text>
-                            <Text style={styles.expense}>-${totalExpense.toFixed(2)}</Text>
+                            <Text style={styles.expense}>-${formatCurrency(totalExpense)}</Text>
                         </View>
                     </View>
                 </View>
