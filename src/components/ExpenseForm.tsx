@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { ExpenseType } from '../types/expense';
 import { ExpenseFormButton } from './ExpenseFormButton';
+import { formatAmountInput, parseCurrency } from '../utils/currency';
 
 interface ExpenseFormData {
     title: string;
@@ -20,8 +21,11 @@ export const ExpenseForm: React.FC<Props> = ({ initialValues, onSubmit, submitLa
     const [title, setTitle] = useState(initialValues?.title || '');
     const [amount, setAmount] = useState(initialValues?.amount || '');
     const [type, setType] = useState<ExpenseType>(initialValues?.type || 'expense');
-
     const [date, setDate] = useState(initialValues?.date || new Date().toISOString().split('T')[0]);
+
+    const handleAmountChange = (text: string) => {
+        setAmount(formatAmountInput(text));
+    };
 
     const handleSubmit = () => {
         if (!title.trim()) {
@@ -29,7 +33,7 @@ export const ExpenseForm: React.FC<Props> = ({ initialValues, onSubmit, submitLa
             return;
         }
 
-        const numAmount = parseFloat(amount);
+        const numAmount = parseCurrency(amount);
         if (isNaN(numAmount) || numAmount <= 0) {
             Alert.alert('Validation Error', 'Please enter a valid positive amount');
             return;
@@ -40,7 +44,13 @@ export const ExpenseForm: React.FC<Props> = ({ initialValues, onSubmit, submitLa
             return;
         }
 
-        onSubmit({ title, amount, date, type });
+        // Pass the clean number string (without commas) to the parent.
+        onSubmit({
+            title,
+            amount: numAmount.toString(),
+            date,
+            type
+        });
     };
 
     return (
@@ -74,7 +84,7 @@ export const ExpenseForm: React.FC<Props> = ({ initialValues, onSubmit, submitLa
             <TextInput
                 style={styles.input}
                 value={amount}
-                onChangeText={setAmount}
+                onChangeText={handleAmountChange}
                 placeholder="0.00"
                 keyboardType="numeric"
             />
