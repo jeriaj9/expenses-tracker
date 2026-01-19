@@ -86,9 +86,7 @@ export const ExpenseForm: React.FC<Props> = ({ initialValues, onSubmit, submitLa
                 placeholder="YYYY-MM-DD"
             />
 
-            <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-                <Text style={styles.submitButtonText}>{submitLabel}</Text>
-            </TouchableOpacity>
+            <ExpenseFormButton label={submitLabel} onPress={handleSubmit} />
         </View>
     );
 };
@@ -142,17 +140,5 @@ const styles = StyleSheet.create({
     activeTypeText: {
         color: '#333',
         fontWeight: '700',
-    },
-    submitButton: {
-        backgroundColor: '#2196F3',
-        padding: 16,
-        borderRadius: 8,
-        alignItems: 'center',
-        marginTop: 8,
-    },
-    submitButtonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
     },
 });

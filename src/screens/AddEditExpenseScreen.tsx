@@ -22,6 +22,13 @@ export const AddEditExpenseScreen: React.FC<Props> = ({ navigation, route }) => 
         });
     }, [navigation, expenseId]);
 
+    if (expenseId && !existingExpense) {
+        // Edge case: ID passed but not found (e.g. deleted)
+        // Should probably navigation.goBack() but let's just render null/error to be safe or pop
+        navigation.goBack();
+        return null;
+    }
+
     const handleSubmit = (data: any) => {
         if (existingExpense) {
             updateExpense(existingExpense.id, data);
@@ -35,6 +42,13 @@ export const AddEditExpenseScreen: React.FC<Props> = ({ navigation, route }) => 
         }
         navigation.goBack();
     };
+
+    const handleDelete = () => {
+        if (existingExpense) {
+            removeExpense(existingExpense.id);
+            navigation.goBack();
+        }
+    }
 
     return (
         <ScrollView style={styles.container}>
@@ -52,6 +66,15 @@ export const AddEditExpenseScreen: React.FC<Props> = ({ navigation, route }) => 
                 onSubmit={handleSubmit}
                 submitLabel={existingExpense ? 'Update' : 'Add'}
             />
+            {existingExpense && (
+                <View style={{ marginTop: 16 }}>
+                    <ExpenseFormButton
+                        label="Delete Expense"
+                        onPress={handleDelete}
+                        isDestructive
+                    />
+                </View>
+            )}
         </ScrollView>
     );
 };
