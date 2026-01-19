@@ -21,7 +21,6 @@ export const ExpenseForm: React.FC<Props> = ({ initialValues, onSubmit, submitLa
     const [amount, setAmount] = useState(initialValues?.amount || '');
     const [type, setType] = useState<ExpenseType>(initialValues?.type || 'expense');
 
-    // Simple date handling for now (YYYY-MM-DD)
     const [date, setDate] = useState(initialValues?.date || new Date().toISOString().split('T')[0]);
 
     const handleSubmit = () => {
