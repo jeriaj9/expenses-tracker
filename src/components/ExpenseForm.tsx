@@ -68,6 +68,7 @@ export const ExpenseForm: React.FC<Props> = ({ initialValues, onSubmit, submitLa
                 value={title}
                 onChangeText={setTitle}
                 placeholder="e.g. Groceries"
+                autoCapitalize="sentences"
             />
 
             <Text style={styles.label}>Amount ($)</Text>
@@ -87,7 +88,9 @@ export const ExpenseForm: React.FC<Props> = ({ initialValues, onSubmit, submitLa
                 placeholder="YYYY-MM-DD"
             />
 
-            <ExpenseFormButton label={submitLabel} onPress={handleSubmit} />
+            <View style={{ marginTop: 8 }}>
+                <ExpenseFormButton label={submitLabel} onPress={handleSubmit} />
+            </View>
         </View>
     );
 };

@@ -24,7 +24,7 @@ export const ExpensesList: React.FC<Props> = ({ expenses, onExpensePress }) => {
             renderItem={({ item }) => (
                 <ExpenseListItem expense={item} onPress={onExpensePress} />
             )}
-            contentContainerStyle={styles.list}
+            contentContainerStyle={[styles.list, { paddingBottom: 100 }]}
         />
     );
 };
