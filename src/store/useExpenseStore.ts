@@ -21,12 +21,21 @@ export const useExpenseStore = create<ExpenseState>()(
                 set((state) => ({
                     expenses: state.expenses.filter((e) => e.id !== id),
                 })),
+            /**
+       * Updates an existing expense by ID.
+       * Merges the current expense data with the new partial data.
+       */
             updateExpense: (id, updatedExpense) =>
                 set((state) => ({
                     expenses: state.expenses.map((e) =>
                         e.id === id ? { ...e, ...updatedExpense } : e
                     ),
                 })),
+
+            /**
+             * Returns a single expense by ID from the current state.
+             * Note: This is a selector-like helper; in components use `useExpenseStore(s => s.expenses.find(...))` for reactivity if needed.
+             */
             getExpenseById: (id) => get().expenses.find((e) => e.id === id),
         }),
         {

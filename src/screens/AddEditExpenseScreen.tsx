@@ -30,9 +30,12 @@ export const AddEditExpenseScreen: React.FC<Props> = ({ navigation, route }) => 
         return null;
     }
 
-    const handleSubmit = (data: any) => {
+    const handleSubmit = (data: { title: string; amount: string; date: string; type: 'income' | 'expense' }) => {
         if (existingExpense) {
-            updateExpense(existingExpense.id, data);
+            updateExpense(existingExpense.id, {
+                ...data,
+                amount: parseFloat(data.amount)
+            });
         } else {
             const newExpense: Expense = {
                 id: uuidv4(),
