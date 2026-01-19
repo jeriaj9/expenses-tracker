@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { ExpenseType } from '../types/expense';
+import { ExpenseFormButton } from './ExpenseFormButton';
 
 interface ExpenseFormData {
     title: string;
